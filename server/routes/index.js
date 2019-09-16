@@ -1,20 +1,63 @@
-import Users from '../controllers/user';
-import Books from '../controllers/book';
+import asignacion from '../controllers/grupo_asignacion';
+import Medicamentos from '../controllers/medicamentos';
+
+import Fecha_Cantidad from '../controllers/fecha_cantidad';
+import Pedidos from '../controllers/pedidos';
+import Receta_Paciente from '../controllers/receta_paciente'
+import Cliente from '../controllers/cliente'
+import Receta_cliente from '../controllers/receta_cliente'
+
 
 export default (app) => {
 
-app.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the bookStore API!',
-}));
+    app.get('/api', (req, res) => res.status(200).send({
+        message: 'Welcome to the bookStore API!',
+    }));
 
-app.post('/api/users', Users.signUp); // API route for user to signup
-app.post('/api/users/:userId/books', Books.create); // API route for user to create a book
-app.get('/api/users', Users.list); // API route for user to get all books in the database
+    
+
+    //grupo designacion
+    app.post('/api/reg_grupoDesignacion', asignacion.create_designacion);
+    app.get('/api/mostrar_grupos', asignacion.list);
+    app.get('/api/one_grupo/:id_grupo', asignacion.listOne);
+    app.put('/api/update_grupo/:id_grupo', asignacion.modify_grupo);
+
+    //rutas para medicamentos
+    app.post('/api/reg_med', Medicamentos.reg_medicamentos );
+    app.get('/api/mostrar_medicamentos', Medicamentos.list_medicamentos);
+    app.get('/api/one_medicamento/:id_medicamento', Medicamentos.listOne);
+    app.put('/api/update_medicamento/:id_medicamento', Medicamentos.modificar_medicamento)
+
+    app.get('/api/nonbre_medicamento/:nombre_medicamento' ,Medicamentos.nombre_medicamento)
+    app.post('/api/update_cantidad/:id_medicamento', Medicamentos.modificar_cantidad) //esta ruta es para modificar la cantidad  y las ventas del medicamento
+
+    app.get('/api/list_med', Medicamentos.list_med)// esta ruta muestra una lista de todos los medicamentos con su grupo asignacion
 
 
-//libros
-app.get('/api/books', Books.list); // API route for user to get all books in the database
-app.put('/api/books/:bookId', Books.modify); // API route for user to edit a book
-app.delete('/api/books/:bookId', Books.delete); // API route for user to delete a book
-app.get('/api/idLib/:id', Books.listOne);
+    //ruta para cantidad de medicamentos y las fechas
+    app.post('/api/cerateFecha_Cantidad/:id_medicamento', Fecha_Cantidad.cerateFecha_Cantidad);
+    app.get('/api/list_fecha_cantidad', Fecha_Cantidad.VerFechaCantidad);
+    app.get('/api/one_fecha_medicamento/:id_medicamento', Fecha_Cantidad.listMedicamentos);
+
+
+    //ruta para pedidos 
+    app.post('/api/reg_pedido', Pedidos.create_pedidos );
+    app.get('/api/list_pedidos', Pedidos.list_pedidos);
+    app.get('/api/one_pedido/:id_pedido', Pedidos.one_pedido)
+
+    // ruta para receta paciente
+    app.post('/api/reg_receta_paciente', Receta_Paciente.create_receta );
+    app.get('/api/recetas', Receta_Paciente.list_recetas)
+
+
+    // ruta para clientes 
+    app.post('/api/create_cliente',Cliente.create_cliente );
+    app.get('/api/list_clients', Cliente.list_clients);
+    app.get('/api/one_client/:id_cliente', Cliente.one_client)
+
+    //ruta para reg receta cliente
+    app.post('/api/create_receta_cliente/:id_cliente',Receta_cliente.create_receta_cliente);
+    app.get('/api/list_recetas_clientes', Receta_cliente.list_recetas_cliente)
+    
+
 };

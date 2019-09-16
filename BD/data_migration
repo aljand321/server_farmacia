@@ -1,0 +1,22 @@
+sequelize model:create --name asignacioAlmacen --attributes codigo:integer,descripcion:string
+
+
+base de datos de almacen
+
+sequelize model:create --name grupo_asignacion --attributes codigo:integer,descripcion:string
+
+
+sequelize model:create --name medicamentos --attributes codificacion:integer,nombre:string,generico:string,unida_medida:string,forma_f:string,presentacion:string,cantidad_unidad:integer,ventas:integer,id_grupoAsig:integer
+
+
+sequelize model:create --name cantidad_fecha --attributes codigo_compra:integer,fehca_vencimineto:string,cantidad_unidad:integer,precio:decimal,id_medicamento:integer
+
+
+sequelize model:create --name pedidos --attributes num_solicitud:integer,trimestre:string,responsable:string,destino:string,medicamentos:json 
+
+
+sequelize model:create --name receta_paciente --attributes codigo_venta:integer,empleado:string,historial:integer,tipo_consulta:string,nombre_doctor:string,medicamentos:json,id_receta:integer,id_user:integer
+
+sequelize model:create --name cliente --attributes ci:integer,nombre:text,apellidop:string,apellidom:string,id_user:integer
+
+sequelize model:create --name receta_cliente --attributes codigo_venta:integer,empleado:string,ci:integer,medicamentos:json,id_user:integer,id_cliente:integer

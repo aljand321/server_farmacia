@@ -1,37 +1,36 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Books', {
+    return queryInterface.createTable('receta_pacientes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      author: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      description: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      quantity: {
-        allowNull: false,
+      codigo_venta: {
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-          as: 'userId',
-        }
+      empleado: {
+        type: Sequelize.STRING
+      },
+      historial: {
+        type: Sequelize.INTEGER
+      },
+      tipo_consulta: {
+        type: Sequelize.STRING
+      },
+      nombre_doctor: {
+        type: Sequelize.STRING
+      },
+      medicamentos: {
+        type: Sequelize.JSON
+      },
+      id_receta: {
+        type: Sequelize.INTEGER
+      },
+      id_user: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -43,5 +42,7 @@ module.exports = {
       }
     });
   },
-  down: queryInterface /* , Sequelize */ =>  queryInterface.dropTable('Books')
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('receta_pacientes');
+  }
 };
