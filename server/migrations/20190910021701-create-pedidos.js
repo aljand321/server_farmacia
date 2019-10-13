@@ -26,6 +26,12 @@ module.exports = {
       medicamentos: {
         type: Sequelize.JSON
       },
+      medicamento_mandado_almacen: {
+        type: Sequelize.JSON
+      },
+      medicamento_aceptado_farmacia: {
+        type: Sequelize.JSON
+      },
       id_user: {
         type:Sequelize.INTEGER
       },

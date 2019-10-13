@@ -74,7 +74,7 @@ class Medicamentos {
                                         msg: "Ese grupo designacion no esta registrado"
                                     })
                                 }else{
-                                    const { codificacion,nombre,generico,unida_medida, forma_f, presentacion, cantidad_unidad,precio_compra,precio } = req.body
+                                    const { codificacion,nombre,generico,unida_medida, forma_f, presentacion, receta_medico,cantidad_unidad,precio_compra,precio } = req.body
                                     var cantidad_inicial = req.body.cantidad_unidad
                                     var entradas = 0
                                     var ventas = 0
@@ -87,6 +87,7 @@ class Medicamentos {
                                         unida_medida,
                                         forma_f, 
                                         presentacion, 
+                                        receta_medico,
 
                                         cantidad_inicial,// esto es la cantidad que hay al momento de registrar el producto
                                         entradas, // esto es los pedidos o las entradas del producto
@@ -95,6 +96,7 @@ class Medicamentos {
                                         precio_compra,
                                         precio,
                                         ventas, // esto es el numero de ventas que se realizo del producto
+                                        
                                         id_grupoAsig 
                                     })
                                     .then(data => res.status(201).send({
@@ -255,6 +257,52 @@ class Medicamentos {
 
                             cantidad_unidad: cantidad_unidad || update.cantidad_unidad,
                             ventas: ventas || update.ventas,
+
+                        }
+                      })
+                    })
+                    .catch(error => res.status(400).send({
+                        success: false,
+                        msg: "No se pudo actualizar los datos",
+                        error
+                    }));
+                })
+                .catch(error => res.status(400).send({
+                    success: false,
+                    msg: "No se pudo actualizar los datos",
+                    error
+                }));
+            }
+        })
+    }
+    static sumar_cantidad(req, res) {
+        const { id_medicamento } = req.params
+        medicamentos.findAll({
+            where:{id: id_medicamento}
+            //attributes: ['id', ['description', 'descripcion']]
+        }).then((data) => {
+            if(data == ""){
+                res.status(400).json({
+                    success:false,
+                    msg: "ese medicamentos no esta registrado"
+                })
+            }else{
+                var cantidad_unidad = data[0].cantidad_unidad + req.body.cantidad_unidad
+                var entradas = data[0].entradas + req.body.entradas
+                return medicamentos
+                .findByPk(req.params.id_medicamento)
+                .then((data) => {
+                    data.update({
+                        cantidad_unidad: cantidad_unidad || data.cantidad_unidad,
+                        entradas:entradas||data.entradas                  
+                    })
+                    .then((update) => {
+                      res.status(200).send({
+                        success:true,
+                        msg: 'Se actualizo la cantidad',
+                        data: {
+                            cantidad_unidad: cantidad_unidad || update.cantidad_unidad,
+                            entradas:entradas||update.entradas                  
 
                         }
                       })

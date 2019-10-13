@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     responsable: DataTypes.STRING,
     destino: DataTypes.STRING,
     medicamentos: DataTypes.JSON,
+    medicamento_mandado_almacen: DataTypes.JSON,
+    medicamento_aceptado_farmacia: DataTypes.JSON,
     id_user: DataTypes.INTEGER
   }, {});
   pedidos.associate = function(models) {

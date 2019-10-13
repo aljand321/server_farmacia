@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     unida_medida: DataTypes.STRING,
     forma_f: DataTypes.STRING,
     presentacion: DataTypes.STRING,
+    receta_medico: DataTypes.STRING,
     cantidad_inicial:DataTypes.INTEGER,
     entradas:DataTypes.INTEGER,
     cantidad_unidad: DataTypes.INTEGER,

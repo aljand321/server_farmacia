@@ -27,13 +27,15 @@ class Pedidos {
                 })
             }
         }else{
-            const {  trimestre, responsable, destino, medicamentos, id_user } = req.body
+            const {  trimestre, responsable, destino, medicamentos,medicamento_mandado_almacen,medicamento_aceptado_farmacia, id_user } = req.body
             return pedidos
             .create({
                 trimestre, 
                 responsable, 
                 destino, 
                 medicamentos,
+                medicamento_mandado_almacen,
+                medicamento_aceptado_farmacia,
                 id_user
             })
             .then(data => res.status(201).send({
@@ -65,6 +67,100 @@ class Pedidos {
         }).then((data) => {
             res.send(data);
         });     
+    }
+    static update_peidodo_almacen_of_farmacia(req,res){
+        const { id_pedido } = req.params;  
+        const { medicamento_mandado_almacen } = req.body;  
+        console.log(req.body, "  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        if(!medicamento_mandado_almacen){
+        
+            res.status(400).json({
+              success:false,
+              msg:"Inserte medicamentos antes de guardar"
+            })
+        
+        }else{
+          return pedidos
+          .findByPk(id_pedido)
+          .then((data) => {
+            data.update({
+                medicamento_mandado_almacen: medicamento_mandado_almacen || data.medicamento_mandado_almacen,      
+            })
+            .then(update => {
+              res.status(200).send({
+                success:true,
+                msg: 'Se actualizo el estado de cama',
+                data : {
+                    medicamento_mandado_almacen: medicamento_mandado_almacen || update.medicamento_mandado_almacen,
+                }
+              })
+              .catch(error => {
+               
+                console.log(error)
+                res.status(500).json({
+                  success:false,
+                  msg: "No se pudo actualizar falla de servidor"
+                })
+              })
+            })
+            .catch(error => {
+              
+              console.log(error , "  22 2")
+                res.status(500).json({
+                  success:false,
+                  msg: "No se pudo actualizar falla de servidor"
+                })
+            })
+          })
+        }         
+      }
+    static update_peidodo_farmacia(req,res){
+        const { id_pedido } = req.params;  
+        const { medicamento_aceptado_farmacia } = req.body;  
+        
+        if(!medicamento_aceptado_farmacia){
+            console.log(req.body, "  no")
+            res.status(400).json({
+              success:false,
+              msg:"Inserte medicamentos antes de guardar"
+            })
+          
+        }else{
+            console.log(req.body, "  si")
+
+          return pedidos
+          .findByPk(id_pedido)
+          .then((data) => {
+            data.update({
+                medicamento_aceptado_farmacia: medicamento_aceptado_farmacia || data.medicamento_aceptado_farmacia,      
+            })
+            .then(update => {
+              res.status(200).send({
+                success:true,
+                msg: 'Se actualizo el estado de cama',
+                data : {
+                    medicamento_aceptado_farmacia: medicamento_aceptado_farmacia || update.medicamento_aceptado_farmacia,
+                }
+              })
+              .catch(error => {
+                
+                console.log(error)
+                res.status(500).json({
+                  success:false,
+                  msg: "No se pudo actualizar falla de servidor"
+                })
+              })
+            })
+            .catch(error => {
+
+              console.log(error , "  22 2")
+                res.status(500).json({
+                  success:false,
+                  msg: "No se pudo actualizar falla de servidor"
+                })
+            })
+          })
+        }         
     }
 }
 
