@@ -158,7 +158,15 @@ class Medicamentos {
             ]
             //attributes: ['id', ['description', 'descripcion']]
         }).then((data) => {
-            res.send(data);
+            if(data == ""){
+                res.status(400).json({
+                    success:false,
+                    msg:"Ese medicamento no esta registrado"
+                })
+            }else{
+                res.send(data);
+            }
+            
         });     
     }
     //ruta para actualizar medicamento
