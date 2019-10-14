@@ -32,6 +32,7 @@ export default (app) => {
     app.post('/api/update_cantidad/:id_medicamento', Medicamentos.modificar_cantidad) //esta ruta es para modificar la cantidad  y las ventas del medicamento
 
     app.get('/api/list_med', Medicamentos.list_med)// esta ruta muestra una lista de todos los medicamentos con su grupo asignacion
+    app.post('/api/sumar_cantidad/:id_medicamento', Medicamentos.sumar_cantidad)
 
 
     //ruta para cantidad de medicamentos y las fechas
@@ -44,6 +45,8 @@ export default (app) => {
     app.post('/api/reg_pedido', Pedidos.create_pedidos );
     app.get('/api/list_pedidos', Pedidos.list_pedidos);
     app.get('/api/one_pedido/:id_pedido', Pedidos.one_pedido)
+    app.post('/api/update_peidodo_almacen_of_farmacia/:id_pedido', Pedidos.update_peidodo_almacen_of_farmacia)
+    app.post('/api/update_peidodo_farmacia/:id_pedido', Pedidos.update_peidodo_farmacia)
 
     // ruta para receta paciente
     app.post('/api/reg_receta_paciente', Receta_Paciente.create_receta );

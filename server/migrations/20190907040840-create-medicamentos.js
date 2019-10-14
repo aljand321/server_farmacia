@@ -31,6 +31,9 @@ module.exports = {
       presentacion: {
         type: Sequelize.STRING
       },
+      receta_medico:{
+        type: Sequelize.STRING
+      },
       cantidad_inicial:{
         type: Sequelize.INTEGER
       },
