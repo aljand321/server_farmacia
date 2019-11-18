@@ -137,7 +137,7 @@ class Pedidos {
             .then(update => {
               res.status(200).send({
                 success:true,
-                msg: 'Se actualizo el estado de cama',
+                msg: 'Se acepto el pedido',
                 data : {
                     medicamento_aceptado_farmacia: medicamento_aceptado_farmacia || update.medicamento_aceptado_farmacia,
                 }

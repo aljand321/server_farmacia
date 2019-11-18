@@ -2,6 +2,8 @@ import model from '../models';
 
 const { medicamentos } = model;
 const { grupo_asignacion } = model;
+const { cantidad_fecha } = model;
+
 
 class Medicamentos {
     static reg_medicamentos(req,res){
@@ -155,6 +157,29 @@ class Medicamentos {
             where : {id: id_medicamento},
             include : [
                 { model : grupo_asignacion }
+            ]
+            //attributes: ['id', ['description', 'descripcion']]
+        }).then((data) => {
+            if(data == ""){
+                res.status(400).json({
+                    success:false,
+                    msg:"Ese medicamento no esta registrado"
+                })
+            }else{
+                res.send(data);
+            }
+            
+        });     
+    }
+    //ruta para mostar un solo medicamento
+    static one_medicamento_fecha(req, res){                
+        const { id_medicamento } = req.params;  
+        medicamentos.findAll({
+            where : {id: id_medicamento},
+            attributes:[ 'id', 'nombre', 'codificacion' ],
+            include : [
+                { model : cantidad_fecha, attributes:[ 'id', 'fehca_vencimineto', 'cantidad_unidad', 'precio', 'id_medicamento' ] },
+                
             ]
             //attributes: ['id', ['description', 'descripcion']]
         }).then((data) => {

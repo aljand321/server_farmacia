@@ -1,6 +1,7 @@
 import model from '../models';
 
-const { cantidad_fecha } = model
+const { cantidad_fecha } = model;
+const { medicamentos } = model;
 
 class Fecha_Cantidad{
     static cerateFecha_Cantidad(req,res){
@@ -21,11 +22,42 @@ class Fecha_Cantidad{
             data
         })) 
     }
+    //lista de fechas
     static VerFechaCantidad(req, res) {
         return cantidad_fecha
         .findAll()
         .then(data => res.status(200).send(data));
     }
+
+    // lista de fecha cantidad mas su nombre
+    static list_cantidad_fecha(req, res) {
+        return cantidad_fecha
+        .findAll({
+            include:[{
+                model: medicamentos
+            }]
+        })
+        .then(data => res.status(200).send(data));
+    }
+    // lista de fecha cantidad mas su nombre
+    static one_fecha(req, res) {
+        const { id } = req.params
+        return cantidad_fecha
+        .findAll({
+           where:{id : id}
+        })
+        .then(data => {
+            if (data == ""){
+                res.status(400).json({
+                    success:false,
+                    msg:'No hay nada para mostrar'
+                })
+            }else{
+                res.status(200).json(data)
+            }
+        });
+    }
+
     static listMedicamentos(req,res){
         const { id_medicamento } = req.params
         cantidad_fecha.findAll({
