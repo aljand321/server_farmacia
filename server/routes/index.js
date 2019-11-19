@@ -26,6 +26,9 @@ export default (app) => {
     app.post('/api/reg_med', Medicamentos.reg_medicamentos );
     app.get('/api/mostrar_medicamentos', Medicamentos.list_medicamentos);
     app.get('/api/one_medicamento/:id_medicamento', Medicamentos.listOne);
+
+    app.get('/api/one_medicamento_fecha/:id_medicamento', Medicamentos.one_medicamento_fecha)
+
     app.put('/api/update_medicamento/:id_medicamento', Medicamentos.modificar_medicamento)
 
     app.get('/api/nonbre_medicamento/:id_med' ,Medicamentos.nombre_medicamento)
@@ -39,6 +42,9 @@ export default (app) => {
     app.post('/api/cerateFecha_Cantidad/:id_medicamento', Fecha_Cantidad.cerateFecha_Cantidad);
     app.get('/api/list_fecha_cantidad', Fecha_Cantidad.VerFechaCantidad);
     app.get('/api/one_fecha_medicamento/:id_medicamento', Fecha_Cantidad.listMedicamentos);
+
+    app.get('/api/fecha_list_cantidad', Fecha_Cantidad.list_cantidad_fecha)
+    app.get('/api/one_fecha/:id', Fecha_Cantidad.one_fecha)
 
 
     //ruta para pedidos 
