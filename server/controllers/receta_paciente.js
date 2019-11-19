@@ -62,6 +62,16 @@ class Receta_Paciente {
         .then(datas => res.status(200).send(datas));
     }
 
+    // one
+    static one_receta_paciente(req, res) {
+        const { id_receta_paciente } = req.params
+        return receta_paciente
+        .findAll({
+            where:{ id_receta : id_receta_paciente }
+        })
+        .then(datas => res.status(200).send(datas));
+    }
+
 }
 
 export default Receta_Paciente;

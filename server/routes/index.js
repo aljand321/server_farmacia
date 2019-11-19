@@ -28,7 +28,7 @@ export default (app) => {
     app.get('/api/one_medicamento/:id_medicamento', Medicamentos.listOne);
     app.put('/api/update_medicamento/:id_medicamento', Medicamentos.modificar_medicamento)
 
-    app.get('/api/nonbre_medicamento/:nombre_medicamento' ,Medicamentos.nombre_medicamento)
+    app.get('/api/nonbre_medicamento/:id_med' ,Medicamentos.nombre_medicamento)
     app.post('/api/update_cantidad/:id_medicamento', Medicamentos.modificar_cantidad) //esta ruta es para modificar la cantidad  y las ventas del medicamento
 
     app.get('/api/list_med', Medicamentos.list_med)// esta ruta muestra una lista de todos los medicamentos con su grupo asignacion
@@ -51,6 +51,8 @@ export default (app) => {
     // ruta para receta paciente
     app.post('/api/reg_receta_paciente', Receta_Paciente.create_receta );
     app.get('/api/recetas', Receta_Paciente.list_recetas)
+
+    app.get('/api/one_receta_paciente/:id_receta_paciente',Receta_Paciente.one_receta_paciente )
 
 
     // ruta para clientes 
