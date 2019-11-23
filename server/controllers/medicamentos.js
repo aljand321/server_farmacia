@@ -241,9 +241,9 @@ class Medicamentos {
 
      //ruta para mostar un solo medicamento segun el nombre del medicamento
      static nombre_medicamento(req, res){                
-        const { id_med } = req.params;  
+        const { nombre_medicamento } = req.params;  
         medicamentos.findAll({
-            where:{id : id_med}
+            where:{id: nombre_medicamento}
             //attributes: ['id', ['description', 'descripcion']]
         }).then((data) => {
             console.log(data)
