@@ -71,8 +71,8 @@ class Pedidos {
     static update_peidodo_almacen_of_farmacia(req,res){
         const { id_pedido } = req.params;  
         const { medicamento_mandado_almacen } = req.body;  
-        console.log(req.body, "  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-        if(!medicamento_mandado_almacen){
+        console.log(req.body, "  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", medicamento_mandado_almacen.lista_med.length, " si es 0 no deberia de entrar")
+        if(!medicamento_mandado_almacen || medicamento_mandado_almacen.lista_med.length == 0){
         
             res.status(400).json({
               success:false,

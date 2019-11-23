@@ -243,7 +243,7 @@ class Medicamentos {
      static nombre_medicamento(req, res){                
         const { nombre_medicamento } = req.params;  
         medicamentos.findAll({
-            where:{nombre: nombre_medicamento}
+            where:{id: nombre_medicamento}
             //attributes: ['id', ['description', 'descripcion']]
         }).then((data) => {
             console.log(data)
