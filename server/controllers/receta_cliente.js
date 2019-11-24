@@ -55,6 +55,16 @@ class Receta_cliente{
         .findAll()
         .then(datas => res.status(200).send(datas));
     }
+
+    //ventas del cliente
+    static list_ventas_clientes(req, res) {
+        const { id_c } = req.params; 
+        return receta_cliente
+        .findAll({
+            where : { id_cliente: id_c }
+        })
+        .then(datas => res.status(200).send(datas));
+    }
 }
 
 

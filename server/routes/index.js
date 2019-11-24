@@ -14,8 +14,6 @@ export default (app) => {
         message: 'Welcome to the bookStore API!',
     }));
 
-    
-
     //grupo designacion
     app.post('/api/reg_grupoDesignacion', asignacion.create_designacion);
     app.get('/api/mostrar_grupos', asignacion.list);
@@ -69,6 +67,8 @@ export default (app) => {
     //ruta para reg receta cliente
     app.post('/api/create_receta_cliente/:id_cliente',Receta_cliente.create_receta_cliente);
     app.get('/api/list_recetas_clientes', Receta_cliente.list_recetas_cliente)
+
+    app.get('/api/list_ventas_clientes/:id_c', Receta_cliente.list_ventas_clientes)
     
 
 };
