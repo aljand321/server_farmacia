@@ -46,6 +46,8 @@ export default (app) => {
     app.get('/api/fecha_list_cantidad', Fecha_Cantidad.list_cantidad_fecha)
     app.get('/api/one_fecha/:id', Fecha_Cantidad.one_fecha)
 
+    app.post('/api/reduce_cantidad/:id',Fecha_Cantidad.modificar_cantidad)
+
 
     //ruta para pedidos 
     app.post('/api/reg_pedido', Pedidos.create_pedidos );
