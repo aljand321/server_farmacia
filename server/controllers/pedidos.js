@@ -1,5 +1,9 @@
 import model from '../models';
 
+const sequelize = require('sequelize');
+var sequelize1 = require("../models/index");
+const Op = sequelize.Op;
+
 const { pedidos } = model
 
 class Pedidos { 
@@ -57,6 +61,15 @@ class Pedidos {
         return pedidos
         .findAll()
         .then(datas => res.status(200).send(datas));
+    }
+    //filter fechas
+    static list_pedidos_filter(req, res) { 
+      const { fecha_inicio, fecha_final, id_persoanl }  = req.body
+      var _q = pedidos;
+      _q.findAll({
+      where: {[Op.and]: [{id_user: {[Op.eq]: id_persoanl}}, {createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lt]: fecha_final }}]},
+      })
+      .then(datas => res.status(200).send(datas));
     }
     //ruta para mostar un solo medicamento
     static one_pedido(req, res){                

@@ -54,6 +54,7 @@ export default (app) => {
     app.post('/api/update_peidodo_almacen_of_farmacia/:id_pedido', Pedidos.update_peidodo_almacen_of_farmacia)
     app.post('/api/update_peidodo_farmacia/:id_pedido', Pedidos.update_peidodo_farmacia)
 
+    app.post('/api/list_pedidos_filter',Pedidos.list_pedidos_filter); // ruta para reportes solcitud
     // ruta para receta paciente
     app.post('/api/reg_receta_paciente', Receta_Paciente.create_receta );
     app.get('/api/recetas', Receta_Paciente.list_recetas)
