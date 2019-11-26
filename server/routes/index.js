@@ -61,6 +61,9 @@ export default (app) => {
 
     app.get('/api/one_receta_paciente/:id_receta_paciente',Receta_Paciente.one_receta_paciente )
 
+    app.post('/api/filter_fechas_recetas', Receta_Paciente.filter_fechas_recetas)
+
+    app.post('/api/filter_receta_paciente', Receta_Paciente.filter_receta_paciente)
 
     // ruta para clientes 
     app.post('/api/create_cliente',Cliente.create_cliente );
@@ -72,6 +75,8 @@ export default (app) => {
     app.get('/api/list_recetas_clientes', Receta_cliente.list_recetas_cliente)
 
     app.get('/api/list_ventas_clientes/:id_c', Receta_cliente.list_ventas_clientes)
+
+    app.post('/api/filter_fechas_ventas', Receta_cliente.filter_fechas_ventas)
     
 
 };

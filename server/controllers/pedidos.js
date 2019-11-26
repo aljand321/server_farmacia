@@ -64,12 +64,29 @@ class Pedidos {
     }
     //filter fechas
     static list_pedidos_filter(req, res) { 
-      const { fecha_inicio, fecha_final, id_persoanl }  = req.body
+      const { fecha_inicio, fecha_final, id_personal }  = req.body
+      if(!fecha_final || !fecha_inicio || ! id_personal){
+        res.status(400).json({
+            success:false,
+            msg:"Inserte fecha inicio y fecha final y el personal para poder buscar un rago de fechas"
+        })
+    }else{
       var _q = pedidos;
       _q.findAll({
-      where: {[Op.and]: [{id_user: {[Op.eq]: id_persoanl}}, {createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lt]: fecha_final }}]},
+      where: {[Op.and]: [{id_user: {[Op.eq]: id_personal}}, {createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lt]: fecha_final }}]},
       })
-      .then(datas => res.status(200).send(datas));
+      .then(datas => {
+        if(datas == ""){
+          res.status(400).json({
+              success:false,
+              msg:"No hay nada que mostrar"
+          })
+      }else{
+          res.status(200).json(datas)
+      }
+      });
+    }
+     
     }
     //ruta para mostar un solo medicamento
     static one_pedido(req, res){                
