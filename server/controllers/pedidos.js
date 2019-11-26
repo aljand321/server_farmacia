@@ -1,5 +1,9 @@
 import model from '../models';
 
+const sequelize = require('sequelize');
+var sequelize1 = require("../models/index");
+const Op = sequelize.Op;
+
 const { pedidos } = model
 
 class Pedidos { 
@@ -58,6 +62,32 @@ class Pedidos {
         .findAll()
         .then(datas => res.status(200).send(datas));
     }
+    //filter fechas
+    static list_pedidos_filter(req, res) { 
+      const { fecha_inicio, fecha_final, id_personal }  = req.body
+      if(!fecha_final || !fecha_inicio || ! id_personal){
+        res.status(400).json({
+            success:false,
+            msg:"Inserte fecha inicio y fecha final y el personal para poder buscar un rago de fechas"
+        })
+    }else{
+      var _q = pedidos;
+      _q.findAll({
+      where: {[Op.and]: [{id_user: {[Op.eq]: id_personal}}, {createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lt]: fecha_final }}]},
+      })
+      .then(datas => {
+        if(datas == ""){
+          res.status(400).json({
+              success:false,
+              msg:"No hay nada que mostrar"
+          })
+      }else{
+          res.status(200).json(datas)
+      }
+      });
+    }
+     
+    }
     //ruta para mostar un solo medicamento
     static one_pedido(req, res){                
         const { id_pedido } = req.params;  
@@ -71,8 +101,8 @@ class Pedidos {
     static update_peidodo_almacen_of_farmacia(req,res){
         const { id_pedido } = req.params;  
         const { medicamento_mandado_almacen } = req.body;  
-        console.log(req.body, "  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-        if(!medicamento_mandado_almacen){
+        console.log(req.body, "  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", medicamento_mandado_almacen.lista_med.length, " si es 0 no deberia de entrar")
+        if(!medicamento_mandado_almacen || medicamento_mandado_almacen.lista_med.length == 0){
         
             res.status(400).json({
               success:false,
@@ -137,7 +167,7 @@ class Pedidos {
             .then(update => {
               res.status(200).send({
                 success:true,
-                msg: 'Se actualizo el estado de cama',
+                msg: 'Se acepto el pedido',
                 data : {
                     medicamento_aceptado_farmacia: medicamento_aceptado_farmacia || update.medicamento_aceptado_farmacia,
                 }
