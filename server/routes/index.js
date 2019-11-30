@@ -46,6 +46,8 @@ export default (app) => {
 
     app.post('/api/reduce_cantidad/:id',Fecha_Cantidad.modificar_cantidad)
 
+    app.post('/api/filter_fechas_med', Fecha_Cantidad.filter_fechas_med);
+
 
     //ruta para pedidos 
     app.post('/api/reg_pedido', Pedidos.create_pedidos );

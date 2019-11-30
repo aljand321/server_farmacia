@@ -1,5 +1,9 @@
 import model from '../models';
 
+const sequelize = require('sequelize');
+
+const Op = sequelize.Op;
+
 const { cantidad_fecha } = model;
 const { medicamentos } = model;
 
@@ -130,6 +134,40 @@ class Fecha_Cantidad{
         })
         
     }
+
+    //filtrar por fechas
+    static filter_fechas_med(req, res) {
+        
+        const { fecha_inicio, fecha_final, medicamento }  = req.body
+        if(!fecha_final || !fecha_inicio){
+            res.status(400).json({
+                success:false,
+                msg:"Todos los campos son obligatorios"
+            })
+        }else{
+            var _q = medicamentos;
+            _q.findAll({
+                where:{nombre: medicamento},
+                attributes:['id', 'nombre', 'codificacion', 'presentacion', 'forma_f', 'cantidad_unidad','precio_compra','precio'],
+                 include:[{
+                     model:cantidad_fecha,
+                     where: {[Op.and]: [{createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lte]: fecha_final }}]},
+                 }]
+            })
+            .then(datas => {
+                if(datas == ""){
+                    res.status(400).json({
+                        success:false,
+                        msg:"No hay nada para mostrar"
+                    })
+                }else{
+                    res.status(200).json(datas)
+                }
+            });
+        } 
+    }
+    
+    
    
 
 }
