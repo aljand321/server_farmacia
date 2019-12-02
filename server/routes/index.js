@@ -79,6 +79,8 @@ export default (app) => {
     app.get('/api/list_ventas_clientes/:id_c', Receta_cliente.list_ventas_clientes)
 
     app.post('/api/filter_fechas_ventas', Receta_cliente.filter_fechas_ventas)
+
+    app.get('/api/one_receta_cliente/:id', Receta_cliente.one_receta_cliente)
     
 
 };
