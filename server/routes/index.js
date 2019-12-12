@@ -35,6 +35,8 @@ export default (app) => {
     app.get('/api/list_med', Medicamentos.list_med)// esta ruta muestra una lista de todos los medicamentos con su grupo asignacion
     app.post('/api/sumar_cantidad/:id_medicamento', Medicamentos.sumar_cantidad)
 
+    app.post('/api/filter_ventas',Medicamentos.filter_ventas)
+
 
     //ruta para cantidad de medicamentos y las fechas
     app.post('/api/cerateFecha_Cantidad/:id_medicamento', Fecha_Cantidad.cerateFecha_Cantidad);
