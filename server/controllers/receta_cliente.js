@@ -96,6 +96,16 @@ class Receta_cliente{
         }
         
     }
+
+    //ruta one receta cliente
+    static one_receta_cliente(req, res) {
+        const { id } = req.params
+        return receta_cliente
+        .findAll({
+            where:{ id : id }
+        })
+        .then(datas => res.status(200).send(datas));
+    }
 }
 
 
