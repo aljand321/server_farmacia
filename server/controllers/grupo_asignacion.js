@@ -104,6 +104,14 @@ class asignacion {
             error
         }));
     }
+
+    static verAsignacion_data(req, res) {
+        return grupo_asignacion
+          .findAll({
+              attributes:['id','descripcion','codigo']
+          })
+          .then(grupoasig => res.status(200).send(grupoasig));
+    }
 }
 
 export default asignacion

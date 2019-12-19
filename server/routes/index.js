@@ -20,6 +20,8 @@ export default (app) => {
     app.get('/api/one_grupo/:id_grupo', asignacion.listOne);
     app.put('/api/update_grupo/:id_grupo', asignacion.modify_grupo);
 
+    app.get('/api/verAsignacion_data', asignacion.verAsignacion_data)
+
     //rutas para medicamentos
     app.post('/api/reg_med', Medicamentos.reg_medicamentos );
     app.get('/api/mostrar_medicamentos', Medicamentos.list_medicamentos);
@@ -37,6 +39,8 @@ export default (app) => {
 
     app.post('/api/filter_ventas',Medicamentos.filter_ventas)
 
+    app.post('/api/mostrar_med', Medicamentos.mostrar_med)    
+
 
     //ruta para cantidad de medicamentos y las fechas
     app.post('/api/cerateFecha_Cantidad/:id_medicamento', Fecha_Cantidad.cerateFecha_Cantidad);
@@ -49,6 +53,8 @@ export default (app) => {
     app.post('/api/reduce_cantidad/:id',Fecha_Cantidad.modificar_cantidad)
 
     app.post('/api/filter_fechas_med', Fecha_Cantidad.filter_fechas_med);
+
+    app.get('/api/get_med_fecha_c', Fecha_Cantidad.get_med_fecha_c)
 
 
     //ruta para pedidos 

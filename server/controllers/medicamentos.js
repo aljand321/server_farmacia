@@ -139,7 +139,11 @@ class Medicamentos {
     //ruta para poder listar todos los medicamentos
     static list_medicamentos(req, res) {
         return medicamentos
-        .findAll()
+        .findAll({
+            include:[{
+                model:grupo_asignacion
+            }]
+        })
         .then(datas => res.status(200).send(datas));
     }
 
@@ -385,6 +389,36 @@ class Medicamentos {
             }); 
         }
     }
+
+    //serv para mostar todos los medicamentos
+    static mostrar_med(req, res) {
+        const { id_grupo } = req.body;
+        if (!id_grupo){
+          res.status(400).json({
+            success:false,
+            msg:"Selecione grupo por favor"
+          })
+        }else{
+            medicamentos.findAll({
+            where:{ id_grupoAsig: id_grupo },
+            include:[{
+              model:grupo_asignacion
+            }]
+            //attributes: ['id', ['description', 'descripcion']]
+          }).then((data) => {
+            if(data == ""){
+              res.status(400).json({
+                success:false,
+                msg:"No hay medicamentos en ese grupo"
+              })
+            }else{
+              res.status(200).json(data);
+            }
+            
+          });  
+        }
+         
+      }
 }
 
 

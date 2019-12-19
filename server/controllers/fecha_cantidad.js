@@ -135,6 +135,18 @@ class Fecha_Cantidad{
         
     }
 
+    //lista de fechas
+    static get_med_fecha_c(req, res) {
+        return medicamentos
+        .findAll({
+            attributes:['id', 'nombre', 'codificacion', 'presentacion', 'forma_f', 'cantidad_unidad','precio_compra','precio'],
+            include:[{
+                model:cantidad_fecha
+            }]
+        })
+        .then(data => res.status(200).send(data));
+    }
+
     //filtrar por fechas
     static filter_fechas_med(req, res) {
         
