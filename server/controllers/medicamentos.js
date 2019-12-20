@@ -203,7 +203,8 @@ class Medicamentos {
     }
     //ruta para actualizar medicamento
     static modificar_medicamento(req, res) {
-        const { nombre,generico,unida_medida, forma_f, presentacion, cantidad_unidad, precio_compra, precio } = req.body
+        const { nombre,generico,unida_medida, forma_f, presentacion, cantidad_unidad, precio_compra, precio,id_grupoAsig } = req.body
+        console.log(req.body, " 2222222222222222222233333333333333333333333333333333333")
         return medicamentos
           .findByPk(req.params.id_medicamento)
           .then((data) => {
@@ -215,7 +216,8 @@ class Medicamentos {
                 presentacion: presentacion || data.presentacion,
                 cantidad_unidad: cantidad_unidad || data.cantidad_unidad,
                 precio_compra: precio_compra || data.precio_compra,
-                precio: precio || data.precio
+                precio: precio || data.precio,
+                id_grupoAsig: id_grupoAsig || data.id_grupoAsig,
             })
             .then((update) => {
               res.status(200).send({
@@ -229,21 +231,26 @@ class Medicamentos {
                     presentacion: presentacion || update.presentacion,
                     cantidad_unidad: cantidad_unidad || update.cantidad_unidad,
                     precio_compra: precio_compra || update.precio_compra,
-                    precio: precio || update.precio
+                    precio: precio || update.precio,
+                    id_grupoAsig: id_grupoAsig || update.id_grupoAsig,
                 }
               })
             })
-            .catch(error => res.status(400).send({
-                success: false,
-                msg: "No se pudo actualizar los datos",
-                error
-            }));
+            .catch(error => {
+                console.log("11111", error)
+                res.status(400).json({
+                    success: false,
+                    msg: "No se pudo actualizar los datos"
+                })
+            });
         })
-        .catch(error => res.status(400).send({
-            success: false,
-            msg: "No se pudo actualizar los datos",
-            error
-        }));
+        .catch(error => {
+            console.log("2222222222", error)
+            res.status(500).json({
+                success:false ,
+                msg: "No se pudo actualizar los datos"
+            })
+        });
     }
 
      //ruta para mostar un solo medicamento segun el nombre del medicamento
