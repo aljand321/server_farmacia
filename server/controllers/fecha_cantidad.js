@@ -137,11 +137,11 @@ class Fecha_Cantidad{
 
     //lista de fechas
     static get_med_fecha_c(req, res) {
-        return medicamentos
+        return cantidad_fecha
         .findAll({
-            attributes:['id', 'nombre', 'codificacion', 'presentacion', 'forma_f', 'cantidad_unidad','precio_compra','precio'],
             include:[{
-                model:cantidad_fecha
+                model:medicamentos,
+                attributes:['id','codificacion','nombre','forma_f','precio_compra','precio']
             }]
         })
         .then(data => res.status(200).send(data));
